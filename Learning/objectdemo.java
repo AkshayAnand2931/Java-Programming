@@ -44,6 +44,7 @@ class objectdemo{
 
         System.out.println(s1.equals(s2));
 
-        System.out.println(s1.clone());
+        sample s3 = (sample)s1.clone();
+        System.out.println(s1.equals(s3));
     }
 }
