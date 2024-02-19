@@ -1,43 +1,29 @@
 import java.util.Arrays;
-import java.util.ArrayList;
-import java.lang.Math;
-
-class Student{
-
-    int id;
-    String name;
-
-    Student(int id, String name){
-
-        this.id = id;
-        this.name = name;
-    }
-
-    public String toString(){
-        return "The name is "+name+" and the id is "+id;
-    }
-}
 
 public class ArrayDemo {
     
     public static void main(String[] args) {
         
-        int javaArray[] = new int[10];
-        for(int i = 0; i < javaArray.length; i++){
-            javaArray[i] = i*2;
-        }
+        int arr[] = {10,6,30};
+        int arr1[] = {10,6,31};
+        
+        System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(arr1));
 
-        for(int i: javaArray){
-            System.out.println(i);
-        }
+        Arrays.sort(arr);
+        int key = 30;
+        System.out.println(Arrays.binarySearch(arr, key));
 
-        ArrayList<Student> list_S = new ArrayList<Student>();
-        list_S.add(new Student(10, "abc"));
-        list_S.add(new Student(20, "def"));
+        key = 30;
+        System.out.println(Arrays.binarySearch(arr, key));
 
-        for(Student s: list_S){
-            System.out.println(s);
-        }
+        System.out.println(Arrays.equals(arr, arr1));
+        System.out.println(Arrays.mismatch(arr, arr1));
 
+        Arrays.sort(arr1);
+        System.out.println(Arrays.equals(arr, arr1));
+
+        int copy[] = Arrays.copyOf(arr, 10);
+        System.out.println(Arrays.toString(copy));
     }
 }
