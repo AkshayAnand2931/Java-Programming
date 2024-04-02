@@ -1,7 +1,22 @@
+import java.util.Scanner;
+
 public class abstractFactory {
     
     public static void main(String[] args){
 
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the type of drink(Coffee, Tea, Soft Drink):");
+        String type = scanner.nextLine().strip();
+        System.out.println("Enter the name of the drink: ");
+        String drink = scanner.nextLine().strip();
+        System.out.println("\n\n\n");
+
+        Dispenser dispenser = new Dispenser();
+        Beverage beverage = dispenser.prepareDrink(type,drink);
+        beverage.prepare();
+        beverage.pour();
+        beverage.dispense();
     }
 }
 
@@ -23,18 +38,18 @@ interface SoftDrink extends Beverage{
 
 }
 
-class Expresso implements Coffee{
+class Espresso implements Coffee{
 
     public void prepare(){
-        System.out.println("Prepare Expresso.");
+        System.out.println("Prepare Espresso.");
     }
 
     public void pour(){
-        System.out.println("Pour Expresso.");
+        System.out.println("Pour Espresso.");
     }
 
     public void dispense(){
-        System.out.println("Dispense Expresso.");
+        System.out.println("Dispense Espresso.");
     }
 }
 
@@ -120,8 +135,8 @@ interface BeverageFactory{
 class CoffeeFactory  implements BeverageFactory{
     @Override
     public Beverage getBeverage(String type){
-        if(type.equals("Expresso")){
-            return new Expresso();
+        if(type.equals("Espresso")){
+            return new Espresso();
         }
         else if(type.equals("Latte")){
             return new Latte();
@@ -159,5 +174,30 @@ class SoftDrinkFactory  implements BeverageFactory{
         else{
             return null;
         }
+    }
+}
+
+class Dispenser{
+
+    private BeverageFactory beverageFactory;
+
+    Dispenser(){
+        beverageFactory = null;
+    }
+
+    public Beverage prepareDrink(String type, String drink){
+
+        if(type.equals("Coffee")){
+            beverageFactory = new CoffeeFactory();
+        }
+        else if(type.equals("Tea")){
+            beverageFactory = new TeaFactory();
+        }
+        else if(type.equals("Soft Drink")){
+            beverageFactory = new SoftDrinkFactory();
+        }
+
+        Beverage beverage = beverageFactory.getBeverage(drink);
+        return beverage;
     }
 }
